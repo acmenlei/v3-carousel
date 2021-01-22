@@ -1,6 +1,6 @@
 {
   "name": "v3-carousel",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "基于vue3的轮播图插件，多种属性适配，可以满足基本需求。",
   "main": "index.js",
   "directories": {

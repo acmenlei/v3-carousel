@@ -1,0 +1,23 @@
+{
+  "id": "2343509",
+  "name": "carousel",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "18366432",
+      "name": "page-previous",
+      "font_class": "page-previous",
+      "unicode": "e675",
+      "unicode_decimal": 58997
+    },
+    {
+      "icon_id": "18366433",
+      "name": "page-next",
+      "font_class": "page-next",
+      "unicode": "e676",
+      "unicode_decimal": 58998
+    }
+  ]
+}
