@@ -1,21 +1,21 @@
 #### 1. v3-carousel 介绍
 基于vue3的轮播图插件，多种属性适配，可以满足基本需求。
 
-#### 2.  Carousel 组件属性
+#### 2.  Carousel 组件选项：
 
-`carousel`:
-
-| property name        | type    | default value | meaning                        |
-| -------------------- | ------- | ------------- | ------------------------------ |
-| autoplay             | Boolean | true          | 是否自动开始轮播               |
-| duration             | Number  | 3000          | 轮播间隔是多久一次             |
-| initIndex            | Number  | 0             | 初始化显示的图片               |
-| direction            | Boolean | true          | 是否需要上、下一张按钮         |
-| directionColor       | String  | white         | 上、下一张按钮的颜色           |
-| directionSize        | Number  | 25            | 上、下一张按钮的大小，单位(px) |
-| indicator            | Boolean | true          | 是否需要轮播图指示器           |
-| indicatorColor       | String  | white         | 未选中时的指示器颜色           |
-| indicatorActiveColor | String  | red           | 选中时的指示器颜色             |
+| property name        | type    | default value | meaning                                                      |
+| -------------------- | ------- | ------------- | ------------------------------------------------------------ |
+| autoplay             | Boolean | true          | 是否自动开始轮播                                             |
+| duration             | Number  | 3000          | 轮播间隔是多久一次                                           |
+| initIndex            | Number  | 0             | 初始化显示的图片                                             |
+| direction            | Boolean | true          | 是否需要上、下一张按钮                                       |
+| directionColor       | String  | white         | 上、下一张按钮的颜色                                         |
+| directionSize        | Number  | 25            | 上、下一张按钮的大小，单位(px)                               |
+| indicator            | Boolean | true          | 是否需要轮播图指示器                                         |
+| indicatorColor       | String  | white         | 未选中时的指示器颜色                                         |
+| indicatorActiveColor | String  | red           | 选中时的指示器颜色                                           |
+| containerWidth       | String  | 1200px        | 设置整个carousel容器的宽度, 当然你也可以使用vw，rem，em等像素单位 |
+| containerHeight      | String  | 500px         | 设置整个carousel容器的g高度， 同上                           |
 
 #### 3. 如何使用它？
 ##### 安装方式一：
@@ -84,11 +84,11 @@ export default defineComponent({
 </script>
 ```
 
-##### 联系方式：
+#### 联系方式：
 
-使用如果出现问题欢迎来讨论，觉得好用的话就点个`star`吧，o(*￣▽￣*)o ！
+>  使用如果出现问题欢迎来讨论，觉得好用的话就点个`star`吧，o(*￣▽￣*)o ， 有什么建议大伙可以提出来，谢谢！
 
-微信(WeChat)： x972761675
+**微信(WeChat)**： x972761675
 
-前端qq交流群：700785102
+**前端qq交流群**：700785102
 
