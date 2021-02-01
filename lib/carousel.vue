@@ -6,7 +6,12 @@
     :style="{ width: containerWidth, height: containerHeight }"
   >
     <slot></slot>
-    <Indicator class="indicator" @DicatorClick="DicatorClick" />
+    <Indicator
+      class="indicator"
+      @before-moving="beforeEmit"
+      @after-moving="afterEmit"
+      @DicatorClick="DicatorClick"
+    />
     <div class="direction-container" v-if="isDirection">
       <Direction
         @prevHandleClick="prevHandleClick"
@@ -36,6 +41,7 @@ import Direction from "./direction.vue";
 
 export default {
   name: "Carousel",
+  emits: ["before-moving", "after-moving"],
   props: {
     autoplay: {
       type: Boolean,
@@ -86,12 +92,12 @@ export default {
     Indicator,
     Direction,
   },
-  setup(props, ctx) {
+  setup(props, { slots, emit }) {
     const state = reactive({
       currentIndex: props.initIndex,
     });
     let timer = null;
-    const CAROUSEL_ITEM_LEN = ctx.slots.default()[0].children.length;
+    const CAROUSEL_ITEM_LEN = slots.default()[0].children.length;
     const isDirection = props.direction;
 
     const autoplay = () => {
@@ -108,7 +114,16 @@ export default {
     onBeforeUnmount(() => {
       clearTimer();
     });
+
+    const beforeEmit = (data) => {
+      emit("before-moving", data);
+    };
+    const afterEmit = (data) => {
+      emit("after-moving", data);
+    };
+
     const start = (direction) => {
+      beforeEmit({ index: state.currentIndex, direction });
       switch (direction) {
         case "prev":
           state.currentIndex -= 1;
@@ -123,6 +138,7 @@ export default {
           }
           break;
       }
+      afterEmit({ index: state.currentIndex, direction });
     };
 
     const DicatorClick = (idx) => {
@@ -157,6 +173,8 @@ export default {
       prevHandleClick,
       nextHandleClick,
       isDirection,
+      beforeEmit,
+      afterEmit,
     };
   },
 };

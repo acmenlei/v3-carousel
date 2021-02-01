@@ -15,22 +15,30 @@
 import { ref, getCurrentInstance, watch } from "vue";
 export default {
   name: "Indicator",
-  emits: ["DicatorClick"],
+  emits: ["DicatorClick", "before-moving", "after-moving"],
   setup(props, { emit }) {
     const instance = getCurrentInstance().parent;
     const len = instance.slots.default()[0].children.length;
     const globalColor = instance.props.indicatorColor;
     const activeColor = instance.props.indicatorActiveColor;
     const indicator = instance.props.indicator;
+    const ctx = instance.ctx;
 
     const DicatorClick = (idx) => {
-      emit("DicatorClick", idx);
+      if (idx !== ctx.currentIndex) {
+        // 当点击的不是同一个所以我就
+        let direction = "next";
+        idx > ctx.currentIndex ? (direction = "next") : (direction = "prev");
+        emit("before-moving", { index: ctx.currentIndex, direction }); // 滚动前
+        emit("DicatorClick", idx); // 开始滚动
+        emit("after-moving", { index: idx, direction }); // 滚动后
+      }
     };
 
-    const currentIndex = ref(instance.ctx.currentIndex);
+    const currentIndex = ref(ctx.currentIndex);
 
     watch(
-      () => instance.ctx.currentIndex,
+      () => ctx.currentIndex,
       (v) => {
         currentIndex.value = v;
       }

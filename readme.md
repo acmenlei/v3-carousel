@@ -17,7 +17,15 @@
 | containerWidth       | String  | 1200px        | 设置整个carousel容器的宽度, 当然你也可以使用vw，rem，em等像素单位 |
 | containerHeight      | String  | 500px         | 设置整个carousel容器的g高度， 同上                           |
 
+#### Carousel Event
+
+| event Name     | parmas                                                       | meaning                                                      |
+| -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| @before-moving | 该钩子函数拥有一个对象参数，你可以获取到它们：轮播的方向(**direction**)以及当前轮播的索引(**index**) | 视图移动前会执行的钩子函数，如果您想在轮播图轮播前做一些逻辑可以使用该钩子 |
+| @after-moving  | 同上...                                                      | 视图移动完成后会执行的钩子函数，如果您想在轮播图轮播完成之后做一些逻辑可以使用该钩子 |
+
 #### 3. 如何使用它？
+
 ##### 安装方式一：
 ```shell
 npm install v3-carousel
@@ -32,13 +40,13 @@ yarn add v3-carousel
 ```js
 import { createApp } from "vue";
 import App from "./App.vue";
-import V3Carousel from "v3-carousel"; // 引入
+import Carousel from "v3-carousel"; // 引入
 
 const app = createApp(App)
-app.use(V3Carousel).mount('#app') // 使用
+app.use(Carousel).mount('#app') // 使用
 ...
 ```
-**注意点**： 将你需要显示的图片使用`CarouselItem`包裹起来（创建Carousel-item暂时必须使用v-for循环完成，因为我需要使用到`key`来操作），完成之后你还需要将这些`CarouselItem`用一个大的`Carousel`包裹起来，再给`Carousel`添加你需要的属性，好了，到这里一个实例就完成了，你可以去网页上查看轮播图了
+**注意点**： 将你需要显示的图片使用`CarouselItem`包裹起来（创建`CarouselItem`暂时必须使用v-for循环完成，因为我需要使用到`key`来操作），完成之后你还需要将这些`CarouselItem`用一个大的`Carousel`包裹起来，再给`Carousel`添加你需要的属性，好了，到这里一个实例就完成了，你可以去网页上查看轮播图了
 
 `App.vue`
 
@@ -46,15 +54,17 @@ app.use(V3Carousel).mount('#app') // 使用
 <template>
   <div class="app">
     <Carousel
-        :autoplay="true"
-        :duration="2000"
-        :initIndex="2"
-        :direction="true"
-        :directionSize="20"
-        directionColor="skyblue"
-        :indicator="true"
-        indicatorColor="white"
-        indicatorActiveColor="skyblue"
+      :autoplay="true"
+      :duration="2000"
+      :initIndex="2"
+      :direction="true"
+      :directionSize="20"
+      directionColor="skyblue"
+      :indicator="true"
+      indicatorColor="white"
+      indicatorActiveColor="skyblue"
+      @before-moving="beforeMoving"
+      @after-moving="afterMoving"
     >
       <CarouselItem v-for="(item, index) in data" :key="index">
         <img :src="item" />
@@ -67,6 +77,14 @@ import { defineComponent, reactive, toRefs } from "vue";
 
 export default defineComponent({
   name: "App",
+  methods: {
+    beforeMoving(dire) {
+      console.log("before", dire);
+    },
+    afterMoving(obj) {
+      console.log("after", obj);
+    },
+  },
   setup() {
     const state = reactive({
       data: [
@@ -75,13 +93,13 @@ export default defineComponent({
         "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3593656793,3600757928&fm=26&gp=0.jpg",
       ],
     });
-
     return {
       ...toRefs(state),
     };
   },
 });
 </script>
+
 ```
 
 #### 联系方式：
