@@ -1,6 +1,6 @@
 {
   "name": "v3-carousel",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "基于vue3的轮播图插件，多种属性适配，可以满足基本需求。",
   "main": "index.js",
   "directories": {
@@ -8,6 +8,10 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Acmenlei/v3-carousel.git"
   },
   "author": "codelei",
   "license": "ISC",
