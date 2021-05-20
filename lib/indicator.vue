@@ -62,7 +62,9 @@ export default {
   justify-content: center;
   align-items: flex-end;
   width: 100%;
-  height: 100%;
+  /* 不会遮挡住 切换按钮 */
+  height: 1px;
+  bottom: 0;
 }
 .indicator span {
   width: 10px;

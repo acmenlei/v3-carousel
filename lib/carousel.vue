@@ -4,6 +4,7 @@
     @mouseenter="mouseEnterEvent"
     @mouseleave="mouseLeaveEvent"
     :style="{ width: containerWidth, height: containerHeight }"
+    :class="{ leftToRight: leftToRight }"
   >
     <slot></slot>
     <Indicator
@@ -95,6 +96,7 @@ export default {
   setup(props, { slots, emit }) {
     const state = reactive({
       currentIndex: props.initIndex,
+      leftToRight: false, // 从左向右滑动方式
     });
     let timer = null;
     const CAROUSEL_ITEM_LEN = slots.default()[0].children.length;
@@ -122,10 +124,18 @@ export default {
       emit("after-moving", data);
     };
 
+    const changeLeftTranslate = () => {
+      state.leftToRight = true;
+      setTimeout(() => {
+        state.leftToRight = false;
+      }, 500);
+    }
+
     const start = (direction) => {
       beforeEmit({ index: state.currentIndex, direction });
       switch (direction) {
         case "prev":
+          changeLeftTranslate();
           state.currentIndex -= 1;
           if (state.currentIndex === -1) {
             state.currentIndex = CAROUSEL_ITEM_LEN - 1;
@@ -142,6 +152,10 @@ export default {
     };
 
     const DicatorClick = (idx) => {
+      // 如果是从 右 换到 左
+      if (idx < state.currentIndex) {
+        changeLeftTranslate();
+      }
       state.currentIndex = idx;
     };
 
@@ -184,5 +198,36 @@ export default {
 .Carousel {
   position: relative;
   overflow: hidden;
+}
+/* 轮播方向 */
+.Carousel >>> .v-enter-active,
+.Carousel >>> .v-leave-active {
+  transition: transform 0.5s linear;
+}
+/* 从右向左 */
+.Carousel >>> .v-enter-active {
+  transform: translateX(100%);
+}
+.Carousel >>> .v-enter-to {
+  transform: translateX(0);
+}
+.Carousel >>> .v-leave-active {
+  transform: translateX(0);
+}
+.Carousel >>> .v-leave-to {
+  transform: translateX(-100%);
+}
+/* 从左向右 */
+.leftToRight >>> .v-enter-active {
+  transform: translateX(-100%) !important;
+}
+.leftToRight >>> .v-enter-to {
+  transform: translateX(0) !important;
+}
+.leftToRight >>> .v-leave-active {
+  transform: translateX(0) !important;
+}
+.leftToRight >>> .v-leave-to {
+  transform: translateX(100%) !important;
 }
 </style>

@@ -40,27 +40,8 @@ export default {
 .container {
   position: relative;
 }
-.container img {
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-.v-enter-active,
-.v-leave-active {
-  transition: transform 0.4s linear;
-}
-.v-enter-active {
-  transform: translateX(-100%);
-}
-.v-enter-to {
-  transform: translateX(0);
-}
-.v-leave-active {
-  transform: translateX(0);
-}
-.v-leave-to {
-  transform: translateX(100%);
+.container >>> img {
+  height: 100%;
+  width: 100%;
 }
 </style>
