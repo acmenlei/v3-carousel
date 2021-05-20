@@ -1,28 +1,30 @@
 #### 1. v3-carousel 介绍
 基于vue3的轮播图插件，多种属性适配，可以满足基本需求。
 
-#### 2.  Carousel 组件选项：
+#### 2.  Carousel 组件选项（Props）
 
-| property name        | type    | default value | meaning                                                      |
-| -------------------- | ------- | ------------- | ------------------------------------------------------------ |
-| autoplay             | Boolean | true          | 是否自动开始轮播                                             |
-| duration             | Number  | 3000          | 轮播间隔是多久一次                                           |
-| initIndex            | Number  | 0             | 初始化显示的图片                                             |
-| direction            | Boolean | true          | 是否需要上、下一张按钮                                       |
-| directionColor       | String  | white         | 上、下一张按钮的颜色                                         |
-| directionSize        | Number  | 25            | 上、下一张按钮的大小，单位(px)                               |
-| indicator            | Boolean | true          | 是否需要轮播图指示器                                         |
-| indicatorColor       | String  | white         | 未选中时的指示器颜色                                         |
-| indicatorActiveColor | String  | red           | 选中时的指示器颜色                                           |
-| containerWidth       | String  | 1200px        | 设置整个carousel容器的宽度, 当然你也可以使用vw，rem，em等像素单位 |
-| containerHeight      | String  | 500px         | 设置整个carousel容器的g高度， 同上                           |
+| property name        | type    | default value | meaning |
+| -------------------- | ------- | ------------- | ------- |
+| containerWidth       | String  | 100%          | 设置整个carousel容器的宽度,当然你也可以使用vw，rem，em等像素单位 |
+| containerHeight      | String  | 100%          | 设置整个carousel容器的g高度,同上 |
+| duration             | Number  | 3000          | 轮播间隔是多久一次 |
+| initIndex            | Number  | 0             | 初始化显示的图片索引 |
+| autoplay             | Boolean | true          | 是否自动开始轮播 |
+| direction            | Boolean | true          | 是否需要切换按钮（即 上、下一张按钮） |
+| directionMode        | String  | always        | 切换按钮的展示方式，可选 always、hover |
+| directionColor       | String  | white         | 切换按钮的颜色 |
+| directionSize        | Number  | 25            | 切换按钮的大小，单位(px) |
+| indicator            | Boolean | true          | 是否需要轮播图指示器（底部当前选中标识） |
+| indicatorMode        | String  | always        | 切换按钮的展示方式，可选 always、hover |
+| indicatorColor       | String  | #FFFFFF80     | 未选中时的指示器颜色 |
+| indicatorActiveColor | String  | #FFFFFF       | 选中时的指示器颜色 |
 
-#### Carousel Event
+#### Carousel 事件（Event）
 
-| event Name     | parmas                                                       | meaning                                                      |
-| -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| event Name     | parmas | meaning |
+| -------------- | ------ | ------- |
 | @before-moving | 该钩子函数拥有一个对象参数，你可以获取到它们：轮播的方向(**direction**)以及当前轮播的索引(**index**) | 视图移动前会执行的钩子函数，如果您想在轮播图轮播前做一些逻辑可以使用该钩子 |
-| @after-moving  | 同上...                                                      | 视图移动完成后会执行的钩子函数，如果您想在轮播图轮播完成之后做一些逻辑可以使用该钩子 |
+| @after-moving  | 同上... | 视图移动完成后会执行的钩子函数，如果您想在轮播图轮播完成之后做一些逻辑可以使用该钩子 |
 
 #### 3. 如何使用它？
 
@@ -58,9 +60,11 @@ app.use(Carousel).mount('#app') // 使用
       :duration="2000"
       :initIndex="2"
       :direction="true"
+      directionMode="hover"
       :directionSize="20"
       directionColor="skyblue"
       :indicator="true"
+      indicatorMode="always"
       indicatorColor="white"
       indicatorActiveColor="skyblue"
       @before-moving="beforeMoving"
@@ -106,7 +110,8 @@ export default defineComponent({
 
 >  使用如果出现问题欢迎来讨论，觉得好用的话就点个`star`吧，o(*￣▽￣*)o ， 有什么建议大伙可以提出来，谢谢！
 
-**微信(WeChat)**： x972761675
+**前端qq交流群:** 700785102
 
-**前端qq交流群**：700785102
+**repo归属者微信(WeChat):** x972761675
 
+**目前维护者微信(WeChat):** lcc961150665
