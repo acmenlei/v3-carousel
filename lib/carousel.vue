@@ -7,13 +7,11 @@
     :class="{ leftToRight: leftToRight }"
   >
     <slot></slot>
-    <Indicator
-      class="indicator"
-      @before-moving="beforeEmit"
-      @after-moving="afterEmit"
-      @DicatorClick="DicatorClick"
-    />
-    <div class="direction-container" v-if="isDirection">
+
+    <div
+      v-if="isDirection && showDirection"
+      class="direction-container"
+    >
       <Direction
         @prevHandleClick="prevHandleClick"
         class="direction"
@@ -25,6 +23,13 @@
         dir="next"
       />
     </div>
+
+    <Indicator
+      v-if="showIndicator"
+      @before-moving="beforeEmit"
+      @after-moving="afterEmit"
+      @DicatorClick="DicatorClick"
+    />
   </div>
 </template>
 
@@ -44,49 +49,57 @@ export default {
   name: "Carousel",
   emits: ["before-moving", "after-moving"],
   props: {
-    autoplay: {
-      type: Boolean,
-      deafult: true,
-    },
-    duration: {
-      type: Number,
-      default: 3000,
-    },
-    initIndex: {
-      type: Number,
-      default: 0,
-    },
-    direction: {
-      type: Boolean,
-      default: true,
-    },
-    indicator: {
-      type: Boolean,
-      default: true,
-    },
-    indicatorColor: {
-      type: String,
-      default: "white",
-    },
-    indicatorActiveColor: {
-      type: String,
-      default: "orangered",
-    },
-    directionColor: {
-      type: String,
-      default: "white",
-    },
-    directionSize: {
-      type: Number,
-      default: 25,
-    },
-    containerWidth: {
+    containerWidth: { // 宽度
       type: String,
       default: "1200px",
     },
-    containerHeight: {
+    containerHeight: { // 高度
       type: String,
       default: "500px",
+    },
+    duration: { // 轮播延迟时间
+      type: Number,
+      default: 3000,
+    },
+    initIndex: { // 初始化 展示轮播的 index
+      type: Number,
+      default: 0,
+    },
+    autoplay: { // 是否自动播放
+      type: Boolean,
+      deafult: true,
+    },
+    direction: { // 是否展示 切换按钮
+      type: Boolean,
+      default: true,
+    },
+    directionMode: { // 切换按钮 展示方式
+      type: String,
+      default: "always", // always || hover
+    },
+    directionColor: { // 切换按钮 颜色
+      type: String,
+      default: "white",
+    },
+    directionSize: { // 切换按钮 大小
+      type: Number,
+      default: 25,
+    },
+    indicator: { // 是否展示 底部选中圆圈
+      type: Boolean,
+      default: true,
+    },
+    indicatorMode: { // 底部选中圆圈 展示方式
+      type: String,
+      default: "always", // always || hover
+    },
+    indicatorColor: { // 底部选中圆圈 颜色
+      type: String,
+      default: "white",
+    },
+    indicatorActiveColor: { // 底部选中圆圈 活跃颜色
+      type: String,
+      default: "orangered",
     },
   },
   components: {
@@ -96,26 +109,45 @@ export default {
   setup(props, { slots, emit }) {
     const state = reactive({
       currentIndex: props.initIndex,
+      showDirection: true, // 是否展示 切换按钮
+      showIndicator: true, // 是否展示 底部选中圆圈
       leftToRight: false, // 从左向右滑动方式
     });
     let timer = null;
     const CAROUSEL_ITEM_LEN = slots.default()[0].children.length;
     const isDirection = props.direction;
+    const {
+      directionMode,
+      indicatorMode,
+      duration,
+    } = toRefs(props);
 
     const autoplay = () => {
       timer = setInterval(() => {
         start("next");
-      }, props.duration);
+      }, duration.value);
     };
 
+    //#region 声明周期
     onMounted(() => {
+      // 如果 autoplay 为真，自动轮播
       if (props.autoplay) {
         autoplay();
       }
+      // 如果 hover 模式，默认隐藏 切换按钮
+      if (directionMode.value === 'hover') {
+        state.showDirection = false;
+      }
+      // 如果 hover 模式，默认隐藏 底部选中圆圈
+      if (indicatorMode.value === 'hover') {
+        state.showIndicator = false;
+      }
     });
+
     onBeforeUnmount(() => {
       clearTimer();
     });
+    //#endregion
 
     const beforeEmit = (data) => {
       emit("before-moving", data);
@@ -161,10 +193,26 @@ export default {
 
     const mouseEnterEvent = () => {
       clearTimer();
+      // 如果 hover 模式，鼠标移入后，展示 切换按钮
+      if (directionMode.value === 'hover') {
+        state.showDirection = true;
+      }
+      // 如果 hover 模式，鼠标移入后，展示 底部选中圆圈
+      if (indicatorMode.value === 'hover') {
+        state.showIndicator = true;
+      }
     };
 
     const mouseLeaveEvent = () => {
       autoplay();
+      // 如果 hover 模式，鼠标移出后，隐藏 切换按钮
+      if (directionMode.value === 'hover') {
+        state.showDirection = false;
+      }
+      // 如果 hover 模式，鼠标移出后，隐藏 底部选中圆圈
+      if (indicatorMode.value === 'hover') {
+        state.showIndicator = false;
+      }
     };
 
     const prevHandleClick = () => {

@@ -37,8 +37,15 @@ export default {
 </script>
 
 <style scoped>
+.CarouselItem {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
 .container {
   position: relative;
+  height: 100%;
+  width: 100%;
 }
 .container >>> img {
   height: 100%;
