@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="direction">
     <div class="prev" v-if="dir === 'prev'" @click="prevHandleClick">
       <i
         class="iconfont icon-page-previous"
@@ -44,6 +44,9 @@ export default {
 </script>
 
 <style scoped>
+.direction {
+  z-index: inherit;
+}
 .prev,
 .next {
   position: absolute;
@@ -51,15 +54,21 @@ export default {
   cursor: pointer;
   transform: translateY(-50%);
   top: 50%;
+  background: #373d404d;
+  height: 40px;
+  width: 20px;
+  text-align: center;
+  z-index: inherit;
 }
 i {
   font-weight: bold;
-  font-size: 25px;
+  font-size: 16px;
+  line-height: 40px;
 }
 .next {
-  right: 10px;
+  right: 0;
 }
 .prev {
-  left: 10px;
+  left: 0;
 }
 </style>

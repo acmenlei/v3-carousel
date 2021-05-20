@@ -1,7 +1,10 @@
 <template>
   <div class="CarouselItem">
     <transition>
-      <div class="container" v-if="globalIndex === key">
+      <div
+        v-if="globalIndex === key"
+        class="container"
+      >
         <slot></slot>
       </div>
     </transition>
@@ -46,6 +49,7 @@ export default {
   position: relative;
   height: 100%;
   width: 100%;
+  z-index: 1;
 }
 .container >>> img {
   height: 100%;

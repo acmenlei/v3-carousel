@@ -5,6 +5,7 @@
       :key="item"
       :style="{
         backgroundColor: currentIndex === item - 1 ? activeColor : globalColor,
+        width: currentIndex === item - 1 ? '20px' : '',
       }"
       @click="DicatorClick(item - 1)"
     ></span>
@@ -64,13 +65,15 @@ export default {
   width: 100%;
   /* 不会遮挡住 切换按钮 */
   height: 1px;
-  bottom: 0;
+  bottom: 10px;
+  z-index: 2;
 }
 .indicator span {
   width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  margin: 10px 2px;
+  height: 3px;
   cursor: pointer;
+}
+.indicator span + span {
+  margin-left: 10px;
 }
 </style>

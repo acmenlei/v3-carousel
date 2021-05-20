@@ -9,23 +9,21 @@
     <slot></slot>
 
     <div
-      v-if="isDirection && showDirection"
+      v-show="isDirection && showDirection"
       class="direction-container"
     >
       <Direction
         @prevHandleClick="prevHandleClick"
-        class="direction"
         dir="prev"
       />
       <Direction
         @nextHandleClick="nextHandleClick"
-        class="direction"
         dir="next"
       />
     </div>
 
     <Indicator
-      v-if="showIndicator"
+      v-show="showIndicator"
       @before-moving="beforeEmit"
       @after-moving="afterEmit"
       @DicatorClick="DicatorClick"
@@ -51,11 +49,11 @@ export default {
   props: {
     containerWidth: { // 宽度
       type: String,
-      default: "1200px",
+      default: "100%",
     },
     containerHeight: { // 高度
       type: String,
-      default: "500px",
+      default: "100%",
     },
     duration: { // 轮播延迟时间
       type: Number,
@@ -67,7 +65,7 @@ export default {
     },
     autoplay: { // 是否自动播放
       type: Boolean,
-      deafult: true,
+      default: true,
     },
     direction: { // 是否展示 切换按钮
       type: Boolean,
@@ -95,11 +93,11 @@ export default {
     },
     indicatorColor: { // 底部选中圆圈 颜色
       type: String,
-      default: "white",
+      default: "rgb(255 255 255 / 50%)",
     },
     indicatorActiveColor: { // 底部选中圆圈 活跃颜色
       type: String,
-      default: "orangered",
+      default: "#FFFFFF",
     },
   },
   components: {
@@ -122,7 +120,7 @@ export default {
       duration,
     } = toRefs(props);
 
-    const autoplay = () => {
+    const autoplayFunc = () => {
       timer = setInterval(() => {
         start("next");
       }, duration.value);
@@ -132,7 +130,7 @@ export default {
     onMounted(() => {
       // 如果 autoplay 为真，自动轮播
       if (props.autoplay) {
-        autoplay();
+        autoplayFunc();
       }
       // 如果 hover 模式，默认隐藏 切换按钮
       if (directionMode.value === 'hover') {
@@ -204,7 +202,7 @@ export default {
     };
 
     const mouseLeaveEvent = () => {
-      autoplay();
+      autoplayFunc();
       // 如果 hover 模式，鼠标移出后，隐藏 切换按钮
       if (directionMode.value === 'hover') {
         state.showDirection = false;
@@ -246,6 +244,9 @@ export default {
 .Carousel {
   position: relative;
   overflow: hidden;
+}
+.direction-container {
+  z-index: 2;
 }
 /* 轮播方向 */
 .Carousel >>> .v-enter-active,
