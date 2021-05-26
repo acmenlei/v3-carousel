@@ -1,13 +1,13 @@
 <template>
   <div class="CarouselItem">
-    <transition>
+    <!-- <transition> -->
       <div
         v-if="globalIndex === key"
         class="container"
       >
         <slot></slot>
       </div>
-    </transition>
+    <!-- </transition> -->
   </div>
 </template>
 
