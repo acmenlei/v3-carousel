@@ -1,8 +1,8 @@
 <template>
-  <div class="CarouselItem">
+  <div class="CarouselItem leeTestBeta2">
     <!-- <transition> -->
       <div
-        v-if="globalIndex === key"
+        v-show="globalIndex === key"
         class="container"
       >
         <slot></slot>
