@@ -34,11 +34,12 @@
 <script>
 import {
   reactive,
+  ref,
   toRefs,
-  getCurrentInstance,
-  watch,
   onMounted,
   onBeforeUnmount,
+  watch,
+  provide,
 } from "vue";
 import Indicator from "./indicator.vue";
 import Direction from "./direction.vue";
@@ -111,6 +112,14 @@ export default {
       showIndicator: true, // 是否展示 底部选中圆圈
       leftToRight: false, // 从左向右滑动方式
     });
+    provide('carouselImgIndex', ref(state));
+    watch(
+      () => state.currentIndex,
+      (v) => {
+        // provide('carouselImgIndex', v);
+        // console.log('======= v:', v);
+      }
+    );
     let timer = null;
     const CAROUSEL_ITEM_LEN = slots.default()[0].children.length;
     const isDirection = props.direction;
