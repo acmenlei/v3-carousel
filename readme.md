@@ -141,9 +141,14 @@ export default defineComponent({
 - WeChat: x972761675
 - 前端qq交流群: 700785102
 
-### 目前维护者
+### 目前维护者: 淳淳同学
 - [个人博客](https://leedebug.github.io/)
 - [Github](https://github.com/LeeDebug)
+- [掘金](https://juejin.cn/user/2189882894323975/posts)
+- [语雀](https://www.yuque.com/LeeDebug)
+- [简书](https://www.jianshu.com/u/fc47eb26e53c)
+- [开源中国](https://my.oschina.net/LeeDebug)
+- [博客园](https://www.cnblogs.com/LeeDebug/)
 - 微信二维码:
 <table>
   <tr>
