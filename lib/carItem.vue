@@ -1,8 +1,8 @@
 <template>
-  <div class="CarouselItem">
+  <div class="CarouselItem leeTestBeta2">
     <transition>
       <div
-        v-if="globalIndex === key"
+        v-show="globalIndex === idx"
         class="container"
       >
         <slot></slot>
@@ -12,20 +12,33 @@
 </template>
 
 <script>
-import { getCurrentInstance, watch, reactive, toRefs } from "vue";
+import {
+  watch,
+  reactive,
+  toRefs,
+  inject,
+} from "vue";
 
 export default {
   name: "CarouselItem",
-  setup() {
-    const instance = getCurrentInstance();
-    const ctx = instance.parent.ctx;
-    const key = instance.vnode.key;
+  props: {
+    idx: {
+      type: Number,
+      default: 0,
+    },
+  },
+  setup(props, ctx1) {
+    // 获取每个子组件图片的索引
+    const { idx } = toRefs(props);
+
     const state = reactive({
-      globalIndex: ctx.currentIndex,
+      globalIndex: 0,
     });
-    /* 监听父组件索引 */
+
+    // 获取当前展示图片的索引
+    const carouselCtxState = inject('carouselCtxState');
     watch(
-      () => ctx.currentIndex,
+      () => carouselCtxState.currentIndex,
       (v) => {
         state.globalIndex = v;
       }
@@ -33,7 +46,7 @@ export default {
 
     return {
       ...toRefs(state),
-      key,
+      idx,
     };
   },
 };

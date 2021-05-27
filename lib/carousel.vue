@@ -35,10 +35,9 @@
 import {
   reactive,
   toRefs,
-  getCurrentInstance,
-  watch,
   onMounted,
   onBeforeUnmount,
+  provide,
 } from "vue";
 import Indicator from "./indicator.vue";
 import Direction from "./direction.vue";
@@ -106,13 +105,19 @@ export default {
   },
   setup(props, { slots, emit }) {
     const state = reactive({
-      currentIndex: props.initIndex,
+      CAROUSEL_ITEM_LEN: slots.default()[0].children.length,
+      propsStaging: props, // 暂存 props 对象，供子组件使用
+      currentIndex: props.initIndex, // 当前展示的索引
       showDirection: true, // 是否展示 切换按钮
       showIndicator: true, // 是否展示 底部选中圆圈
       leftToRight: false, // 从左向右滑动方式
     });
+
+    // 其实子组件只需要 currentIndex 字段，但单独 provide 一个字段是非响应式的
+    // 所以，将整个响应式对象传下去，在子组件内 inject 时是响应式的，配合 watch 食用即可
+    provide('carouselCtxState', state);
+
     let timer = null;
-    const CAROUSEL_ITEM_LEN = slots.default()[0].children.length;
     const isDirection = props.direction;
     const {
       directionMode,
@@ -168,12 +173,12 @@ export default {
           changeLeftTranslate();
           state.currentIndex -= 1;
           if (state.currentIndex === -1) {
-            state.currentIndex = CAROUSEL_ITEM_LEN - 1;
+            state.currentIndex = state.CAROUSEL_ITEM_LEN - 1;
           }
           break;
         case "next":
           state.currentIndex += 1;
-          if (state.currentIndex === CAROUSEL_ITEM_LEN) {
+          if (state.currentIndex === state.CAROUSEL_ITEM_LEN) {
             state.currentIndex = 0;
           }
           break;
@@ -213,9 +218,11 @@ export default {
       }
     };
 
+    // 向左滑动
     const prevHandleClick = () => {
       start("prev");
     };
+    // 向右滑动
     const nextHandleClick = () => {
       start("next");
     };
