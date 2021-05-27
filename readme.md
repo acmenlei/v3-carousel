@@ -114,4 +114,16 @@ export default defineComponent({
 
 **repo归属者微信(WeChat):** x972761675
 
-**目前维护者微信(WeChat):** lcc961150665
+**目前维护者微信:**
+- [个人博客](https://leedebug.github.io/)
+- [Github](https://github.com/LeeDebug)
+- 微信二维码:
+
+<img src="https://cdn.jsdelivr.net/gh/LeeDebug/PicGo/img/20210527113237.png" style="margin-left: 40px;width: 200px;">
+
+
+#### 相关链接：
+
+- [npm package](https://www.npmjs.com/package/v3-carousel)
+- [github repo](https://github.com/Acmenlei/v3-carousel)
+
