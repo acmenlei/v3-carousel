@@ -1,23 +1,20 @@
 <template>
   <div class="CarouselItem leeTestBeta2">
-    <!-- <transition> -->
+    <transition>
       <div
         v-show="globalIndex === idx"
         class="container"
       >
         <slot></slot>
       </div>
-    <!-- </transition> -->
+    </transition>
   </div>
 </template>
 
 <script>
 import {
-  getCurrentInstance,
   watch,
-  computed,
   reactive,
-  ref,
   toRefs,
   inject,
 } from "vue";
@@ -31,38 +28,17 @@ export default {
     },
   },
   setup(props, ctx1) {
-    // console.log('======= ctx.slots.default()[0].children:', ctx1.slots.default()[0]);
-
+    // 获取每个子组件图片的索引
     const { idx } = toRefs(props);
-    let carouselImgIndex = inject('carouselImgIndex');
-    console.log('======= carouselImgIndex:', carouselImgIndex);
-    watch(
-      () => carouselImgIndex,
-      (v) => {
-        console.log('======= carouselItem v:', v);
-        // state.globalIndex = v;
-      }
-    );
-    const cantOperate = computed({
-      get: (g = inject('carouselImgIndex')) => {
-        console.log('======= g: ', g);
-      },
-      set: (s) => {
-        // console.log('======= s: ', s)
-      },
-    });
-    // const cantOperate = computed(() => inject('carouselImgIndex'));
-    console.log('======= cantOperate:', cantOperate);
 
-    const instance = getCurrentInstance();
-    const ctx = instance.parent.ctx;
     const state = reactive({
-      globalIndex: ctx.currentIndex,
+      globalIndex: 0,
     });
 
-    /* 监听父组件索引 */
+    // 获取当前展示图片的索引
+    const carouselCtxState = inject('carouselCtxState');
     watch(
-      () => ctx.currentIndex,
+      () => carouselCtxState.currentIndex,
       (v) => {
         state.globalIndex = v;
       }

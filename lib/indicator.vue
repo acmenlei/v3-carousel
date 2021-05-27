@@ -4,8 +4,8 @@
       v-for="item in len"
       :key="item"
       :style="{
-        backgroundColor: currentIndex === item - 1 ? activeColor : globalColor,
-        width: currentIndex === item - 1 ? '20px' : '',
+        backgroundColor: globalIndex === item - 1 ? indicatorActiveColor : indicatorColor,
+        width: globalIndex === item - 1 ? '20px' : '',
       }"
       @click="DicatorClick(item - 1)"
     ></span>
@@ -13,44 +13,48 @@
 </template>
 
 <script>
-import { ref, getCurrentInstance, watch } from "vue";
+import {
+  reactive,
+  toRefs,
+  watch,
+  inject,
+} from "vue";
 export default {
   name: "Indicator",
   emits: ["DicatorClick", "before-moving", "after-moving"],
-  setup(props, { emit }) {
-    const instance = getCurrentInstance().parent;
-    const len = instance.slots.default()[0].children.length;
-    const globalColor = instance.props.indicatorColor;
-    const activeColor = instance.props.indicatorActiveColor;
-    const indicator = instance.props.indicator;
-    const ctx = instance.ctx;
+  setup(props, ctx) {
+    const carouselCtxState = inject('carouselCtxState');
+    const carouselCtxProps = carouselCtxState.propsStaging;
+
+    const state = reactive({
+      len: carouselCtxState.CAROUSEL_ITEM_LEN,
+      globalIndex: 0,
+      indicator: carouselCtxProps.indicator,
+      indicatorColor: carouselCtxProps.indicatorColor,
+      indicatorActiveColor: carouselCtxProps.indicatorActiveColor,
+    });
+
+    watch(
+      () => carouselCtxState.currentIndex,
+      (v) => {
+        state.globalIndex = v;
+      }
+    );
 
     const DicatorClick = (idx) => {
-      if (idx !== ctx.currentIndex) {
+      if (idx !== state.globalIndex) {
         // 当点击的不是同一个所以我就
         let direction = "next";
-        idx > ctx.currentIndex ? (direction = "next") : (direction = "prev");
-        emit("before-moving", { index: ctx.currentIndex, direction }); // 滚动前
+        idx > state.globalIndex ? (direction = "next") : (direction = "prev");
+        emit("before-moving", { index: state.globalIndex, direction }); // 滚动前
         emit("DicatorClick", idx); // 开始滚动
         emit("after-moving", { index: idx, direction }); // 滚动后
       }
     };
 
-    const currentIndex = ref(ctx.currentIndex);
-
-    watch(
-      () => ctx.currentIndex,
-      (v) => {
-        currentIndex.value = v;
-      }
-    );
     return {
-      len,
+      ...toRefs(state),
       DicatorClick,
-      globalColor,
-      currentIndex,
-      activeColor,
-      indicator,
     };
   },
 };
@@ -72,6 +76,7 @@ export default {
   width: 10px;
   height: 3px;
   cursor: pointer;
+  transition: all 0.5s;
 }
 .indicator span + span {
   margin-left: 10px;
