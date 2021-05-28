@@ -126,17 +126,17 @@ export default {
     } = toRefs(props);
 
     const autoplayFunc = () => {
-      timer = setInterval(() => {
-        start("next");
-      }, duration.value);
+      // 如果 autoplay 为真，自动轮播
+      if (props.autoplay) {
+        timer = setInterval(() => {
+          start("next");
+        }, duration.value);
+      }
     };
 
     //#region 声明周期
     onMounted(() => {
-      // 如果 autoplay 为真，自动轮播
-      if (props.autoplay) {
-        autoplayFunc();
-      }
+      autoplayFunc();
       // 如果 hover 模式，默认隐藏 切换按钮
       if (directionMode.value === 'hover') {
         state.showDirection = false;
