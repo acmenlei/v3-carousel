@@ -26,7 +26,7 @@
       v-show="showIndicator"
       @before-moving="beforeEmit"
       @after-moving="afterEmit"
-      @DicatorClick="DicatorClick"
+      @dicator-click="DicatorClick"
     />
   </div>
 </template>

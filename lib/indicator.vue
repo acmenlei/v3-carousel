@@ -21,8 +21,8 @@ import {
 } from "vue";
 export default {
   name: "Indicator",
-  emits: ["DicatorClick", "before-moving", "after-moving"],
-  setup(props, ctx) {
+  emits: ["dicator-click", "before-moving", "after-moving"],
+  setup(props, { emit }) {
     const carouselCtxState = inject('carouselCtxState');
     const carouselCtxProps = carouselCtxState.propsStaging;
 
@@ -47,7 +47,7 @@ export default {
         let direction = "next";
         idx > state.globalIndex ? (direction = "next") : (direction = "prev");
         emit("before-moving", { index: state.globalIndex, direction }); // 滚动前
-        emit("DicatorClick", idx); // 开始滚动
+        emit("dicator-click", idx); // 开始滚动
         emit("after-moving", { index: idx, direction }); // 滚动后
       }
     };
