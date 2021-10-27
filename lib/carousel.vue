@@ -172,13 +172,13 @@ export default {
         case "prev":
           changeLeftTranslate();
           state.currentIndex -= 1;
-          if (state.currentIndex === -1) {
+          if (state.currentIndex <= -1) {
             state.currentIndex = state.CAROUSEL_ITEM_LEN - 1;
           }
           break;
         case "next":
           state.currentIndex += 1;
-          if (state.currentIndex === state.CAROUSEL_ITEM_LEN) {
+          if (state.currentIndex >= state.CAROUSEL_ITEM_LEN) {
             state.currentIndex = 0;
           }
           break;
