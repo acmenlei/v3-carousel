@@ -41,58 +41,46 @@ app.use(Carousel).mount('#app') // 使用
 `App.vue`
 
 ```html
+<script setup lang="ts">
+import { reactive } from 'vue';
+
+const state = reactive({
+  data: [
+    "https://ns-strategy.cdn.bcebos.com/ns-strategy/upload/fc_big_pic/part-00693-2745.jpg",
+    "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2190440116,1436403087&fm=26&gp=0.jpg",
+    "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3593656793,3600757928&fm=26&gp=0.jpg",
+  ],
+});
+function beforeMoving(dir: { index: number, direction: string }) {
+  // console.log("before", dir);
+}
+function afterMoving(dir: { index: number, direction: string }) {
+  // console.log("after", dir);
+}
+</script>
+
 <template>
-  <div class="app">
+  <div style="width: 400px; height: 300px">
     <Carousel
-      :autoplay="true"
-      :duration="2000"
-      :initIndex="2"
-      :direction="true"
-      directionMode="hover"
-      :directionSize="20"
-      directionColor="skyblue"
-      :indicator="true"
-      indicatorMode="always"
-      indicatorColor="white"
-      indicatorActiveColor="skyblue"
-      @before-moving="beforeMoving"
-      @after-moving="afterMoving"
-    >
-      <CarouselItem v-for="(item, index) in data" :key="index" :idx="index">
-        <img :src="item" />
-      </CarouselItem>
-    </Carousel>
+        :autoplay="true" 
+        :duration="2000" 
+        :initIndex="2" 
+        :direction="true" 
+        directionMode="hover" 
+        :directionSize="20"
+        directionColor="skyblue" 
+        :indicator="true" 
+        indicatorMode="always" 
+        indicatorColor="white"
+        indicatorActiveColor="skyblue" 
+        @before-moving="beforeMoving" 
+        @after-moving="afterMoving">
+    <CarouselItem v-for="(item, index) in state.data" :key="index" :idx="index">
+      <img :src="item" />
+    </CarouselItem>
+  </Carousel>
   </div>
 </template>
-
-<script>
-import { defineComponent, reactive, toRefs } from "vue";
-export default defineComponent({
-  name: "App",
-  setup() {
-    const state = reactive({
-      data: [
-        "https://ns-strategy.cdn.bcebos.com/ns-strategy/upload/fc_big_pic/part-00693-2745.jpg",
-        "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2190440116,1436403087&fm=26&gp=0.jpg",
-        "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3593656793,3600757928&fm=26&gp=0.jpg",
-      ],
-    });
-
-    function beforeMoving(dire) {
-      console.log("before", dire);
-    },
-    function afterMoving(obj) {
-      console.log("after", obj);
-    },
-
-    return {
-      ...toRefs(state),
-      beforeMoving,
-      afterMoving,
-    };
-  },
-});
-</script>
 ```
 
 
