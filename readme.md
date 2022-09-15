@@ -1,5 +1,5 @@
 <div align="center">
-	<h2>v3-carousel</h2>
+	<h3>v3-carousel</h3>
 	<p align="center">
 	    <a href="https://vuejs.org/" target="_blank">
 	        <img src="https://img.shields.io/badge/vue.js-vue3.x-green" alt="vue">
