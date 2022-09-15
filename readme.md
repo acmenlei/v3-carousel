@@ -1,3 +1,16 @@
+<div align="center">
+	<h2>V3-Carousel</h2>
+	<p align="center">
+	    <a href="https://vuejs.org/" target="_blank">
+	        <img src="https://img.shields.io/badge/vue.js-vue3.x-green" alt="vue">
+	    </a>
+		<a href="https://www.tslang.cn/" target="_blank">
+	        <img src="https://img.shields.io/badge/typescript-%3E4.0.0-blue" alt="typescript">
+	    </a>
+	</p>
+	<p>&nbsp;</p>
+</div>
+
 # 介绍
 
 基于 vue3 composition api 编写的轮播插件，多种属性适配，轮播内容 `可完全自定义`，基本可以满足大部分的轮播需求。
