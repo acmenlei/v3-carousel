@@ -1,5 +1,5 @@
 <div align="center">
-	<h2>V3-Carousel</h2>
+	<h2>v3-carousel</h2>
 	<p align="center">
 	    <a href="https://vuejs.org/" target="_blank">
 	        <img src="https://img.shields.io/badge/vue.js-vue3.x-green" alt="vue">
@@ -116,8 +116,6 @@ function afterMoving(dir: { index: number, direction: string }) {
 | indicatorColor       | String  | #FFFFFF80     | 未选中时的指示器颜色 |
 | indicatorActiveColor | String  | #FFFFFF       | 选中时的指示器颜色 |
 
-
-
 ## Carousel 事件（Event）
 
 | event Name     | parmas | meaning |
@@ -131,35 +129,19 @@ function afterMoving(dir: { index: number, direction: string }) {
 | idx           | Number  | 0             | 每个子实例对应的索引，一般用 `v-for` 中的第二个参数即可 |
 
 
-
 # 联系方式
 
 >  使用如果出现问题欢迎来讨论，觉得好用的话就点个 `star` 吧，o(*￣▽￣*)o 
 > 
 > 有什么建议欢迎大佬们提交 `pr`，谢谢！
 
-### repo归属者
+### repo归属者/维护者
 - WeChat: x972761675
-- 前端qq交流群: 700785102
-
-### 目前维护者: 淳淳同学
-- [个人博客](https://leedebug.github.io/)
-- [Github](https://github.com/LeeDebug)
-- [掘金](https://juejin.cn/user/2189882894323975/posts)
-- [语雀](https://www.yuque.com/LeeDebug)
-- [简书](https://www.jianshu.com/u/fc47eb26e53c)
-- [开源中国](https://my.oschina.net/LeeDebug)
-- [博客园](https://www.cnblogs.com/LeeDebug/)
-- 微信二维码:
-<table>
-  <tr>
-    <td>
-      <img src="https://cdn.jsdelivr.net/gh/LeeDebug/PicGo/img/20210527113237.png" width="200px" title="微信" alt="WeChat:lcc961150665">
-    </td>
-  </tr>
-</table>
+- 前端QQ交流群: 471998126
 
 
+### 仓库贡献者
+[淳淳同学](https://github.com/LeeDebug)
 
 # 相关链接
 
