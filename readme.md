@@ -26,7 +26,10 @@ Basic functions:
 [online demo](https://acmenlei.github.io/v3-carousel/dist/)
 
 # install
-
+```bash
+pnpm install v3-carousel
+```
+or
 ```bash
 npm install v3-carousel
 ```
