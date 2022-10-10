@@ -39,9 +39,9 @@ yarn add v3-carousel
 ```
 # use
 
-`main.js`
+`main.ts`
 
-```js
+```ts
 import { createApp } from "vue";
 import App from "./App.vue";
 import Carousel from "v3-carousel"; // import
