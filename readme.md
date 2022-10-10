@@ -11,23 +11,21 @@
 	<p>&nbsp;</p>
 </div>
 
-# 介绍
+# introduce
+Based on the vue3 composition api written by the wheel diagram plug-in, a variety of attributes adaptation, wheel diagram content 'can be completely customized', basically can meet most of the requirements of the wheel diagram.
 
-基于 vue3 composition api 编写的轮播插件，多种属性适配，轮播内容 `可完全自定义`，基本可以满足大部分的轮播需求。
+Basic functions:
+- Whether to enable the automatic rotation graph and customize the rotation graph time
+- Pause the rotation after moving the mouse pointer in, and reset the rotation after moving the mouse pointer out
+- Click the left/right switch button to switch manually
+- Click the bottom wheel cast indicator to switch manually
+- Switch button and wheel cast indicator, can set the hover display
+- Left toggle left scroll, right toggle right scroll
+-...
 
-基本功能介绍：
-- 是否开启自动轮播，自定义轮播时间
-- 鼠标移入后暂停轮播，鼠标移出后重置轮播
-- 点击 左侧/右侧 切换按钮，手动切换
-- 点击 底部轮播指示器，手动切换
-- 切换按钮 与 轮播指示器，可设置 hover 展示
-- 左侧切换向左滚动，右侧切换向右滚动
-- ...
+[online demo](https://acmenlei.github.io/v3-carousel/dist/)
 
-在线Demo：正在制作...
-
-
-# 安装
+# install
 
 ```bash
 npm install v3-carousel
@@ -36,20 +34,20 @@ or
 ```bash
 yarn add v3-carousel
 ```
-# 使用
+# use
 
 `main.js`
 
 ```js
 import { createApp } from "vue";
 import App from "./App.vue";
-import Carousel from "v3-carousel"; // 引入
+import Carousel from "v3-carousel"; // import
 
 const app = createApp(App)
-app.use(Carousel).mount('#app') // 使用
+app.use(Carousel).mount('#app') // use
 ```
 
-> 注意点：将你需要显示的图片使用`CarouselItem`包裹起来（创建`CarouselItem`暂时必须使用`v-for`循环完成，因为我需要使用到`idx`来操作），完成之后你还需要将这些`CarouselItem`用一个大的`Carousel`包裹起来，再给`Carousel`添加你需要的属性，好了，到这里一个实例就完成了，你可以去网页上查看轮播图了
+> Note: Wrap the image you want to display with a 'CarouselItem' (creating a 'CarouselItem' must be done with a 'v-for' loop for now because I need to use 'idx'), Once that's done, you need to wrap the carouselitems in a big Carousel and add the properties you need to the Carousel. Ok, here's an example. You can go to the web page and view the wheel image
 
 `App.vue`
 
@@ -97,53 +95,52 @@ function afterMoving(dir: { index: number, direction: string }) {
 ```
 
 
-# 参数
-## Carousel 组件选项（Props）
+# props
+## Carousel Component（Props）
 
 | property name        | type    | default value | meaning |
 | -------------------- | ------- | ------------- | ------- |
-| containerWidth       | String  | 100%          | 设置整个carousel容器的宽度,当然你也可以使用vw，rem，em等像素单位 |
-| containerHeight      | String  | 100%          | 设置整个carousel容器的g高度,同上 |
-| duration             | Number  | 3000          | 轮播间隔是多久一次 |
-| initIndex            | Number  | 0             | 初始化显示的图片索引 |
-| autoplay             | Boolean | true          | 是否自动开始轮播 |
-| direction            | Boolean | true          | 是否需要切换按钮（即 上、下一张按钮） |
-| directionMode        | String  | always        | 切换按钮的展示方式，可选 always、hover |
-| directionColor       | String  | white         | 切换按钮的颜色 |
-| directionSize        | Number  | 25            | 切换按钮的大小，单位(px) |
-| indicator            | Boolean | true          | 是否需要轮播图指示器（底部当前选中标识） |
-| indicatorMode        | String  | always        | 切换按钮的展示方式，可选 always、hover |
-| indicatorColor       | String  | #FFFFFF80     | 未选中时的指示器颜色 |
-| indicatorActiveColor | String  | #FFFFFF       | 选中时的指示器颜色 |
+| containerWidth       | String  | 100%          | Set the width of the entire carousel container, of course you can also use vw, rem, em and other pixel units |
+| containerHeight      | String  | 100%          | Set the height g of the entire carousel container, as above |
+| duration             | Number  | 3000          | How often is the rotation interval |
+| initIndex            | Number  | 0             | Initializes the display image index |
+| autoplay             | Boolean | true          | Whether to automatically start the rotation |
+| direction            | Boolean | true          | Need to toggle buttons (i.e. up and down buttons)|
+| directionMode        | String  | always        | Toggle the display mode of the button, the options are always and hover |
+| directionColor       | String  | white         | Toggle the color of the button |
+| directionSize        | Number  | 25            | Size of the toggle button in px |
+| indicator            | Boolean | true          | Whether or not a wheelcast indicator is required (currently selected at the bottom) |
+| indicatorMode        | String  | always        | Toggle the display mode of the button, the options are always and hover |
+| indicatorColor       | String  | #FFFFFF80     | Indicator color when not checked |
+| indicatorActiveColor | String  | #FFFFFF       | Indicator color when selected |
 
-## Carousel 事件（Event）
+## Carousel Events
 
 | event Name     | parmas | meaning |
 | -------------- | ------ | ------- |
-| @before-moving | 该钩子函数拥有一个对象参数，你可以获取到它们：轮播的方向(**direction**)以及当前轮播的索引(**index**) | 视图移动前会执行的钩子函数，如果您想在轮播图轮播前做一些逻辑可以使用该钩子 |
-| @after-moving  | 同上... | 视图移动完成后会执行的钩子函数，如果您想在轮播图轮播完成之后做一些逻辑可以使用该钩子 |
+| @before-moving | The hook function has an object argument that you can retrieve: the direction of the rotation (**direction**) and the index of the current rotation (**index**). | The hook function that is executed before the view is moved. You can use this hook if you want to do some logic before the wheel cast diagram |
+| @after-moving  | Same as above... | The hook function that is executed after the view has been moved. You can use this hook if you want to do some logic after the wheel cast graph is finished |
 
-## CarouselItem 组件选项（Props）
+## CarouselItem Component（Props）
 | property name | type    | default value | meaning |
 | ------------- | ------- | ------------- | ------- |
-| idx           | Number  | 0             | 每个子实例对应的索引，一般用 `v-for` 中的第二个参数即可 |
+| idx           | Number  | 0             | The index corresponding to each subinstance is usually the second parameter in 'v-for' |
 
 
-# 联系方式
+# contact
 
->  使用如果出现问题欢迎来讨论，觉得好用的话就点个 `star` 吧，o(*￣▽￣*)o 
+>  If you have any problems, please feel free to discuss it. Click 'star' if you find it useful. o(*￣▽￣*)o 
 > 
-> 有什么建议欢迎大佬们提交 `pr`，谢谢！
+> Any suggestions are welcome to submit 'pr', thank you!
 
-### repo归属者/维护者
+# wechat
 - WeChat: x972761675
-- 前端QQ交流群: 471998126
 
-
-### 仓库贡献者
+# contributors
+[磊磊](https://github.com/acmenlei)
 [淳淳同学](https://github.com/LeeDebug)
 
-# 相关链接
+# package & repo
 
 - [npm package](https://www.npmjs.com/package/v3-carousel)
 - [github repo](https://github.com/Acmenlei/v3-carousel)
