@@ -13,6 +13,9 @@
     "type": "git",
     "url": "git@github.com:Acmenlei/v3-carousel.git"
   },
+  "peerDependencies": {
+    "vue": "^3.2.37"
+  },
   "author": "codelei",
   "license": "ISC",
   "keywords": ["vue3", "vue3-swiper", "vue3-slide", "carousel", "swiper", "slide", "vue"]

@@ -7,7 +7,7 @@ export function useCarouselIdxWatch() {
   const globalIndex = ref(0);
   watch(
     () => carouselCtxState.currentIndex,
-    (v) => {
+    (v: number) => {
       globalIndex.value = v;
     }
   );

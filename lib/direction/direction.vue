@@ -14,7 +14,7 @@ import { useCarouselDirection } from "./hooks"
 import "../../icon/iconfont.css";
 
 const emit = defineEmits(["prevHandleClick", "nextHandleClick"]);
-defineProps({ dir: String })
+defineProps<{ dir: string }>();
 
 const {
   directionColor, directionSize, prevHandleClick, nextHandleClick

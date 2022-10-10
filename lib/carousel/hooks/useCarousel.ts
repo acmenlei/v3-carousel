@@ -1,9 +1,10 @@
-import { CarouselContextState } from './../../../types';
+import { ICarouselStatus, ICarouselProps } from './../../../types';
 import { onBeforeUnmount, onMounted, provide, reactive, toRefs, useSlots } from "vue";
 
-export function useCarousel(props, emit) {
+export function useCarousel(props: ICarouselProps, emit: any) {
   const slots = useSlots();
-  let timer;
+  const isDirection = props.direction, { directionMode, duration } = toRefs(props);
+  let timer: any;
 
   //#region 声明周期
   onMounted(() => {
@@ -12,19 +13,19 @@ export function useCarousel(props, emit) {
       autoplayFunc();
     }
     // 如果 hover 模式，默认隐藏 切换按钮
-    if (directionMode.value === 'hover') {
+    if (directionMode?.value === 'hover') {
       state.showDirection = false;
     }
     // 如果 hover 模式，默认隐藏 底部选中圆圈
-    if (indicatorMode.value === 'hover') {
+    if (directionMode?.value === 'hover') {
       state.showIndicator = false;
     }
   });
 
   onBeforeUnmount(clearTimer);
   //#endregion
-  const state: CarouselContextState = reactive({
-    CAROUSEL_ITEM_LEN: (slots.default()[0].children?.length) as number,
+  const state: any = reactive({
+    CAROUSEL_ITEM_LEN: (slots as any).default()[0].children?.length as number,
     propsStaging: props, // 暂存 props 对象，供子组件使用
     currentIndex: props.initIndex, // 当前展示的索引
     showDirection: true, // 是否展示 切换按钮
@@ -36,18 +37,16 @@ export function useCarousel(props, emit) {
   // 所以，将整个响应式对象传下去，在子组件内 inject 时是响应式的，配合 watch 食用即可
   provide('carouselCtxState', state);
 
-  const isDirection = props.direction, { directionMode, indicatorMode, duration } = toRefs(props);
-
   function autoplayFunc() {
     timer = setInterval(() => {
       start("next");
-    }, duration.value);
+    }, duration?.value);
   };
 
-  function beforeEmit(data) {
+  function beforeEmit(data: ICarouselStatus) {
     emit("before-moving", data);
   };
-  function afterEmit(data) {
+  function afterEmit(data: ICarouselStatus) {
     emit("after-moving", data);
   };
 
@@ -89,11 +88,11 @@ export function useCarousel(props, emit) {
   function mouseEnterEvent() {
     clearTimer();
     // 如果 hover 模式，鼠标移入后，展示 切换按钮
-    if (directionMode.value === 'hover') {
+    if (directionMode?.value === 'hover') {
       state.showDirection = true;
     }
     // 如果 hover 模式，鼠标移入后，展示 底部选中圆圈
-    if (indicatorMode.value === 'hover') {
+    if (directionMode?.value === 'hover') {
       state.showIndicator = true;
     }
   };
@@ -101,11 +100,11 @@ export function useCarousel(props, emit) {
   function mouseLeaveEvent() {
     autoplayFunc();
     // 如果 hover 模式，鼠标移出后，隐藏 切换按钮
-    if (directionMode.value === 'hover') {
+    if (directionMode?.value === 'hover') {
       state.showDirection = false;
     }
     // 如果 hover 模式，鼠标移出后，隐藏 底部选中圆圈
-    if (indicatorMode.value === 'hover') {
+    if (directionMode?.value === 'hover') {
       state.showIndicator = false;
     }
   };

@@ -6,3 +6,22 @@ export interface CarouselContextState {
   showIndicator: boolean, // 是否展示 底部选中圆圈
   leftToRight: boolean, // 从左向右滑动方式
 }
+export interface ICarouselStatus {
+  index: number;
+  direction: string;
+}
+export interface ICarouselProps {
+  containerWidth?: string;
+  containerHeight?: string;
+  duration?: number;
+  initIndex?: number,
+  autoplay?: boolean;
+  direction?: boolean;
+  directionMode?: string;
+  directionColor?: string;
+  directionSize?: number;
+  indicator?: boolean;
+  indicatorMode?: string;
+  indicatorColor?: string;
+  indicatorActiveColor?: string;
+}

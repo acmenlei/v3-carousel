@@ -11,12 +11,7 @@
 <script setup lang="ts">
 import { useCarouselIdxWatch } from "../../utils";
 
-defineProps({
-  idx: {
-    type: Number,
-    default: 0,
-  }
-})
+withDefaults(defineProps<{ idx: number }>(), { idx: 0 })
 // 获取当前展示图片的索引
 const { globalIndex } = useCarouselIdxWatch()
 

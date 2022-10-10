@@ -18,60 +18,36 @@ import Indicator from "../indicator/indicator.vue";
 import Direction from "../direction/direction.vue";
 import { useCarousel } from "./hooks/useCarousel";
 
-const props = defineProps({
-  containerWidth: { // 宽度
-    type: String,
-    default: "100%",
-  },
-  containerHeight: { // 高度
-    type: String,
-    default: "100%",
-  },
-  duration: { // 轮播延迟时间
-    type: Number,
-    default: 3000,
-  },
-  initIndex: { // 初始化 展示轮播的 index
-    type: Number,
-    default: 0,
-  },
-  autoplay: { // 是否自动播放
-    type: Boolean,
-    default: true,
-  },
-  direction: { // 是否展示 切换按钮
-    type: Boolean,
-    default: true,
-  },
-  directionMode: { // 切换按钮 展示方式
-    type: String,
-    default: "always", // always || hover
-  },
-  directionColor: { // 切换按钮 颜色
-    type: String,
-    default: "white",
-  },
-  directionSize: { // 切换按钮 大小
-    type: Number,
-    default: 25,
-  },
-  indicator: { // 是否展示 底部选中圆圈
-    type: Boolean,
-    default: true,
-  },
-  indicatorMode: { // 底部选中圆圈 展示方式
-    type: String,
-    default: "always", // always || hover
-  },
-  indicatorColor: { // 底部选中圆圈 颜色
-    type: String,
-    default: "rgb(255 255 255 / 50%)",
-  },
-  indicatorActiveColor: { // 底部选中圆圈 活跃颜色
-    type: String,
-    default: "#FFFFFF",
-  },
+const props = withDefaults(defineProps<{
+  containerWidth?: string;
+  containerHeight?: string;
+  duration?: number;
+  initIndex?: number,
+  autoplay?: boolean;
+  direction?: boolean;
+  directionMode?: string;
+  directionColor?: string;
+  directionSize?: number;
+  indicator?: boolean;
+  indicatorMode?: string;
+  indicatorColor?: string;
+  indicatorActiveColor?: string;
+}>(), {
+  containerWidth: '100%',
+  containerHeight: '100%',
+  duration: 3000,
+  initIndex: 0,
+  autoplay: true,
+  direction: true,
+  directionMode: 'always',
+  directionColor: 'white',
+  directionSize: 25,
+  indicator: true,
+  indicatorMode: 'always',
+  indicatorColor: "rgb(255 255 255 / 50%)",
+  indicatorActiveColor: '#FFFFFF'
 })
+
 const emit = defineEmits(["before-moving", "after-moving"])
 
 const {

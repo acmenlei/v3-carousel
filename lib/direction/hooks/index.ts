@@ -1,7 +1,7 @@
 import { inject } from 'vue';
 import { CarouselContextState } from './../../../types/index';
 
-export function useCarouselDirection(emit) {
+export function useCarouselDirection(emit: any) {
   const carouselCtxState = inject('carouselCtxState') as CarouselContextState;
   const carouselCtxProps = carouselCtxState.propsStaging;
 

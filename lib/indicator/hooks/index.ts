@@ -2,7 +2,7 @@ import { CarouselContextState } from '../../../types/index';
 import { inject, reactive } from "vue";
 import { useCarouselIdxWatch } from '../../../utils';
 
-export function useIndicator(emit) {
+export function useIndicator(emit: any) {
   const carouselCtxState = inject('carouselCtxState') as CarouselContextState;
   const carouselCtxProps = carouselCtxState.propsStaging;
 
