@@ -18,5 +18,16 @@
   },
   "author": "codelei",
   "license": "ISC",
-  "keywords": ["vue3", "vue3-swiper", "vue3-slide", "carousel", "swiper", "slide", "vue"]
+  "keywords": [
+    "vue3",
+    "vue3-swiper",
+    "vue3-slide",
+    "carousel",
+    "swiper",
+    "slide",
+    "vue"
+  ],
+  "dependencies": {
+    "vue": "^3.2.40"
+  }
 }
